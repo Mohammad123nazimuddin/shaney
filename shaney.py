@@ -20,18 +20,40 @@ def build(contexts, words, n):
 # Generate semi-random output.
 # Print a random starting point and continue from there.
 # 'starters' is a list of possible starter contexts.
+
+# def generate(f, starters, contexts):
+#	context = random.choice(starters)
+#	f.write(" ".join(context))
+#	while True:
+#		key = tuple(context)
+#		wordfreq = contexts.get(key, {})
+#		if not wordfreq:
+#				break
+#		word = choose(wordfreq)
+#		f.write(" " + word)
+#		context = context[1:] + [word]
+#	f.write("\n")
+
 def generate(f, starters, contexts):
-	context = random.choice(starters)
-	f.write(" ".join(context))
-	while True:
-		key = tuple(context)
-		wordfreq = contexts.get(key, {})
-		if not wordfreq:
-				break
-		word = choose(wordfreq)
-		f.write(" " + word)
-		context = context[1:] + [word]
-	f.write("\n")
+    context = random.choice(starters)
+    words_written = 0
+    f.write(" ".join(context))
+    words_written += len(context)
+    while True:
+        key = tuple(context)
+        wordfreq = contexts.get(key, {})
+        if not wordfreq:
+            break
+        word = choose(wordfreq)
+        f.write(" " + word)
+        words_written += 1
+        if words_written % 5 == 0:
+            f.write("\n" + word)
+        else:
+            f.write(" " + word)
+        words_written += 1
+        context = context[1:] + [word]
+    f.write("\n")
 
 # Randomly choose one word from a {word->frequency}
 # dictionary, the choice being weighted by frequency.
