@@ -68,8 +68,8 @@ def main():
 		print("Reading " + data_dir + filename)
 		f = open(data_dir + filename, encoding="utf-8")
 		words = f.read().split()
-		starters.append(words[:2])
-		build(contexts, words, 2)
+		starters.append(words[:n]) ## changed 2 to n 
+		build(contexts, words, n) ## changed 2 to n 
 
 	# Print words at random, starting at some initial context.
 	out_file = "output.txt"
